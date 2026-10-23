@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Syracuse Snow Storm Style</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef5f8;
+  --surface: #ffffff;
+  --ink: #17262e;
+  --muted: #475b66;
+  --teal: #2f5568;
+  --teal-ink: #ffffff;
+  --ice: #d4ecf4;
+  --line: #b9d3de;
+  --orange: #b93a00;
+  --orange-ink: #ffffff;
+  --focus: #0b5cad;
+  --display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1b21;
+    --surface: #16262e;
+    --ink: #e8f1f5;
+    --muted: #a9bec8;
+    --teal: #8fc1d6;
+    --teal-ink: #0f1b21;
+    --ice: #1d3340;
+    --line: #2d4756;
+    --orange: #ff9a63;
+    --orange-ink: #1c0e05;
+    --focus: #7db8ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1b21;
+  --surface: #16262e;
+  --ink: #e8f1f5;
+  --muted: #a9bec8;
+  --teal: #8fc1d6;
+  --teal-ink: #0f1b21;
+  --ice: #1d3340;
+  --line: #2d4756;
+  --orange: #ff9a63;
+  --orange-ink: #1c0e05;
+  --focus: #7db8ff;
+  color-scheme: dark;
+}
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 5.5rem); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--surface);
+  z-index: 10;
+}
+img, svg { max-width: 100%; }
+a { color: var(--teal); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+.skip {
+  position: absolute; left: 1rem; top: -4rem; background: var(--orange); color: var(--orange-ink);
+  padding: .6rem 1rem; border-radius: 6px; z-index: 30; font-weight: 600;
+}
+.skip:focus { top: calc(env(safe-area-inset-top, 0px) + .5rem); }
+
+/* Header and navigation */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.bar {
+  max-width: 72rem; margin: 0 auto; padding: .75rem 1.25rem;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1.5rem;
+}
+.brand { font-family: var(--display); font-size: 1.35rem; line-height: 1.1; color: var(--ink); text-decoration: none; }
+.brand:hover { text-decoration: underline; }
+.nav { display: flex; flex-wrap: wrap; gap: .15rem .25rem; }
+.nav a {
+  color: var(--ink); text-decoration: none; padding: .45rem .7rem; border-radius: 999px; font-weight: 500; font-size: .98rem;
+}
+.nav a:hover { background: var(--ice); }
+.nav a[aria-current="page"] { background: var(--teal); color: var(--teal-ink); }
+
+/* Layout */
+main { outline: none; }
+.page { display: none; }
+.page.active { display: block; }
+.wrap { max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+.narrow { max-width: 46rem; }
+section.block { padding: 3.5rem 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.12; margin: 0 0 .75rem; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+h3 { font-size: 1.45rem; }
+p { margin: 0 0 1rem; max-width: 40rem; }
+.lead { font-size: 1.2rem; color: var(--muted); }
+.page-head { padding: 3rem 0 1rem; }
+
+/* Buttons */
+.btn {
+  display: inline-block; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none;
+  padding: .8rem 1.35rem; border-radius: 10px; border: 2px solid var(--orange);
+  background: var(--orange); color: var(--orange-ink);
+}
+.btn:hover { filter: brightness(1.06); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--teal); }
+.btn.ghost:hover { background: var(--ice); filter: none; }
+.btn-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+
+/* Home hero */
+.hero { background: var(--teal); color: var(--teal-ink); }
+.hero .grid { display: grid; gap: 2.5rem; padding: 4rem 0; align-items: center; grid-template-columns: 1.15fr .85fr; }
+.hero h1 { color: var(--teal-ink); }
+.hero p { color: var(--teal-ink); opacity: .92; font-size: 1.2rem; }
+.hero .btn.ghost { color: var(--teal-ink); border-color: var(--teal-ink); }
+.hero .btn.ghost:hover { background: rgba(255,255,255,.14); }
+.hero .btn { border-color: var(--orange); }
+:root:not([data-theme="light"]) .hero .btn:not(.ghost) { border-color: var(--orange); }
+
+.layers { list-style: none; margin: 0; padding: 0; }
+.layers-title { font-weight: 600; margin: 0 0 .75rem; color: var(--teal-ink); font-size: 1rem; }
+.layers li + li { margin-top: -.55rem; }
+.layers a {
+  display: block; text-decoration: none; padding: 1.1rem 1.25rem 1.5rem; border-radius: 16px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+  transition: transform .18s ease;
+}
+.layers li:nth-child(1) a { margin-left: 0; }
+.layers li:nth-child(2) a { margin-left: 1.4rem; background: var(--ice); }
+.layers li:nth-child(3) a { margin-left: 2.8rem; background: var(--bg); }
+.layers a:hover { transform: translateY(-3px); }
+.layers strong { display: block; font-family: var(--display); font-weight: 400; font-size: 1.3rem; line-height: 1.2; }
+.layers span { color: var(--muted); font-size: .98rem; }
+.layers .style-chip {
+  margin-top: .85rem; display: inline-block; background: var(--orange); color: var(--orange-ink);
+  padding: .55rem 1rem; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .98rem;
+}
+
+.two-col { display: grid; gap: 2.5rem; grid-template-columns: 1fr 1fr; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }
+.panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+ul.plain { margin: 0 0 1rem; padding-left: 1.25rem; }
+ul.plain li { margin-bottom: .35rem; }
+
+/* Photo placeholders */
+.ph {
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: 1.25rem;
+  border: 2px dashed var(--teal); border-radius: 14px; color: var(--muted); font-size: .98rem; line-height: 1.45;
+  background: repeating-linear-gradient(135deg, var(--ice) 0 14px, var(--bg) 14px 28px);
+  min-height: 14rem;
+}
+.ph.tall { aspect-ratio: 4 / 5; min-height: 0; }
+.ph.wide { aspect-ratio: 16 / 9; min-height: 0; }
+.ph span { background: var(--surface); padding: .5rem .8rem; border-radius: 8px; max-width: 22rem; }
+
+/* Instructions */
+.jump { list-style: none; margin: 1.5rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.jump button {
+  font: inherit; font-weight: 600; cursor: pointer; padding: .55rem 1rem; border-radius: 999px;
+  border: 2px solid var(--teal); background: var(--surface); color: var(--ink);
+}
+.jump button:hover { background: var(--ice); }
+.step { padding: 3rem 0; border-top: 1px solid var(--line); }
+.step-grid { display: grid; grid-template-columns: 5rem 1fr 1fr; gap: 2rem; align-items: start; }
+.step-num { font-family: var(--display); font-size: 4.5rem; line-height: .9; color: var(--orange); }
+.tip { background: var(--ice); border-left: 5px solid var(--teal); padding: .8rem 1rem; border-radius: 0 10px 10px 0; max-width: 40rem; }
+.step-nav { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+
+/* Video */
+.video-box { margin-top: 1.5rem; }
+.transcript { margin-top: 2rem; }
+
+/* Style gallery */
+.notice { background: var(--ice); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.25rem; max-width: 46rem; }
+.cards { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); margin-top: 2rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.25rem; }
+.card h3 { margin-top: 1rem; }
+.card dl { margin: 0; }
+.card dt { font-weight: 700; margin-top: .6rem; }
+.card dd { margin: 0; color: var(--muted); }
+
+/* Shop */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); margin-top: 1.5rem; }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; }
+caption { text-align: left; padding: 1rem 1.25rem 0; color: var(--muted); }
+th, td { text-align: left; padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--line); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+th[scope="row"] { font-weight: 700; width: 11rem; }
+td a { display: inline-block; margin: 0 .9rem .25rem 0; }
+
+/* Team */
+.team { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-top: 2rem; }
+.member { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.25rem; }
+.member h3 { margin-top: 1rem; margin-bottom: .1rem; }
+.role { color: var(--muted); font-weight: 600; margin-bottom: .75rem; }
+
+/* Contact */
+form { display: grid; gap: 1.1rem; max-width: 34rem; }
+label { font-weight: 600; display: block; margin-bottom: .3rem; }
+input, select, textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--surface);
+  border: 2px solid var(--line); border-radius: 10px; padding: .7rem .9rem;
+}
+input:hover, select:hover, textarea:hover { border-color: var(--teal); }
+textarea { min-height: 9rem; resize: vertical; }
+.fine { color: var(--muted); font-size: .95rem; }
+.status { max-width: 34rem; border-radius: 10px; padding: 1rem 1.25rem; background: var(--ice); border: 1px solid var(--line); }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); background: var(--surface); margin-top: 3rem; }
+footer .wrap { padding-top: 1.75rem; padding-bottom: 1.75rem; display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; }
+footer p { margin: 0; color: var(--muted); font-size: .98rem; }
+
+@media (max-width: 52rem) {
+  .hero .grid, .two-col { grid-template-columns: 1fr; }
+  .hero .grid { padding: 3rem 0; }
+  .step-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .step-num { font-size: 3rem; }
+  section.block { padding: 2.5rem 0; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content" id="skip-link">Skip to main content</a>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="#home">Syracuse Snow Storm Style</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-page="home">Home</a>
+      <a href="#instructions" data-page="instructions">Instructions</a>
+      <a href="#video" data-page="video">Video</a>
+      <a href="#style" data-page="style">Style inspiration</a>
+      <a href="#shop" data-page="shop">Where to shop</a>
+      <a href="#team" data-page="team">Meet the team</a>
+      <a href="#contact" data-page="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<!-- HOME -->
+<div class="page" id="page-home" data-title="Home">
+  <div class="hero">
+    <div class="wrap grid">
+      <div>
+        <h1>Dress for the wind, not the number.</h1>
+        <p>Syracuse winters are long, windy, and snowy. This guide gives you six simple steps for building an outfit that keeps you warm and dry on the walk to class, and still looks like you.</p>
+        <div class="btn-row">
+          <a class="btn" href="#instructions">Start the instructions</a>
+          <a class="btn ghost" href="#video">Watch the video</a>
+        </div>
+      </div>
+      <div>
+        <p class="layers-title">Warm starts with layers. Choose one to see how it works.</p>
+        <ul class="layers">
+          <li><a href="#instructions" data-step="4"><strong>Outer layer</strong><span>Blocks wind and sheds snow</span></a></li>
+          <li><a href="#instructions" data-step="3"><strong>Middle layer</strong><span>Holds in your body heat</span></a></li>
+          <li><a href="#instructions" data-step="2"><strong>Base layer</strong><span>Sits against your skin</span></a></li>
+        </ul>
+        <a class="style-chip" href="#instructions" data-step="6">Then add your style</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap two-col">
+      <div>
+        <h2>What this site teaches</h2>
+        <p>You will learn how to check the forecast, layer your clothes, choose a coat, protect your hands and feet, and add pieces that feel like you. Every step has a photo and plain instructions you can follow in about ten minutes.</p>
+        <h2>Who it’s for</h2>
+        <p>This guide is written for Syracuse University students, especially first-years and students from warmer places who are dressing for a Syracuse winter for the first time. It also works for anyone who wants practical cold-weather outfit ideas.</p>
+      </div>
+      <div class="panel">
+        <h3>What you’ll need</h3>
+        <ul class="plain">
+          <li>A winter coat, or a plan to buy one</li>
+          <li>A few warm layers you already own</li>
+          <li>Waterproof boots or shoes with good grip</li>
+          <li>About ten minutes</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn ghost" href="#style">See style inspiration</a>
+          <a class="btn ghost" href="#shop">Find where to shop</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div class="page" id="page-instructions" data-title="Instructions">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>How to dress for a Syracuse winter</h1>
+      <p class="lead">Follow these six steps to build an outfit that works for a walk to class. Jump to any step using the buttons below.</p>
+      <ul class="jump" aria-label="Jump to a step">
+        <li><button type="button" data-step="1">Step 1: Forecast</button></li>
+        <li><button type="button" data-step="2">Step 2: Base layer</button></li>
+        <li><button type="button" data-step="3">Step 3: Middle layer</button></li>
+        <li><button type="button" data-step="4">Step 4: Outer layer</button></li>
+        <li><button type="button" data-step="5">Step 5: Feet, hands, head</button></li>
+        <li><button type="button" data-step="6">Step 6: Your style</button></li>
+      </ul>
+    </div>
+
+    <article class="step" id="step1">
+      <div class="step-grid">
+        <div class="step-num" aria-hidden="true">1</div>
+        <div>
+          <h2>Check the forecast before you dress</h2>
+          <p>Look at the temperature, the wind, and whether snow or rain is expected. Wind makes it feel colder than the number shows, so dress for the “feels like” temperature.</p>
+          <p class="tip"><strong>Tip:</strong> Check again right before you leave, since lake-effect snow can change quickly.</p>
+          <div class="step-nav">
+            <button type="button" class="btn" data-step="2">Next step</button>
+          </div>
+        </div>
+        <div class="ph tall" role="img" aria-label="Placeholder for a screenshot of a phone weather app showing the temperature, wind, and snow forecast for Syracuse"><span>Add your photo: a screenshot of your weather app showing temperature and “feels like.”</span></div>
+      </div>
+    </article>
+
+    <article class="step" id="step2">
+      <div class="step-grid">
+        <div class="step-num" aria-hidden="true">2</div>
+        <div>
+          <h2>Start with a warm base layer</h2>
+          <p>Put on a thin, snug layer against your skin, such as a long-sleeve top, thermal shirt, or fleece-lined tights. It traps warmth and keeps you comfortable all day.</p>
+          <p class="tip"><strong>Tip:</strong> Avoid cotton if you expect to get wet, because it stays damp.</p>
+          <div class="step-nav">
+            <button type="button" class="btn ghost" data-step="1">Previous step</button>
+            <button type="button" class="btn" data-step="3">Next step</button>
+          </div>
+        </div>
+        <div class="ph tall" role="img" aria-label="Placeholder for a flat lay of a thermal top and fleece-lined tights"><span>Add your photo: a flat lay of your base layer pieces.</span></div>
+      </div>
+    </article>
+
+    <article class="step" id="step3">
+      <div class="step-grid">
+        <div class="step-num" aria-hidden="true">3</div>
+        <div>
+          <h2>Add an insulating middle layer</h2>
+          <p>Layer a hoodie, sweater, or fleece over your base layer. This layer holds in your body heat, and you can take it off if your classroom is warm.</p>
+          <p class="tip"><strong>Tip:</strong> Choose a middle layer that is easy to take off and carry in your bag.</p>
+          <div class="step-nav">
+            <button type="button" class="btn ghost" data-step="2">Previous step</button>
+            <button type="button" class="btn" data-step="4">Next step</button>
+          </div>
+        </div>
+        <div class="ph tall" role="img" aria-label="Placeholder for a student putting on a gray hoodie over a long-sleeve shirt"><span>Add your photo: you pulling on a hoodie or sweater.</span></div>
+      </div>
+    </article>
+
+    <article class="step" id="step4">
+      <div class="step-grid">
+        <div class="step-num" aria-hidden="true">4</div>
+        <div>
+          <h2>Choose a windproof, water-resistant outer layer</h2>
+          <p>Finish with a coat that blocks wind and sheds snow, such as a puffer, parka, or insulated jacket. Zip it fully and pull the hood up if it’s windy.</p>
+          <p class="tip"><strong>Tip:</strong> A longer coat covers more of your legs when the wind picks up.</p>
+          <div class="step-nav">
+            <button type="button" class="btn ghost" data-step="3">Previous step</button>
+            <button type="button" class="btn" data-step="5">Next step</button>
+          </div>
+        </div>
+        <div class="ph tall" role="img" aria-label="Placeholder for a student zipping up a puffer coat on a snowy sidewalk"><span>Add your photo: you zipping your coat outside, with snow behind you if possible.</span></div>
+      </div>
+    </article>
+
+    <article class="step" id="step5">
+      <div class="step-grid">
+        <div class="step-num" aria-hidden="true">5</div>
+        <div>
+          <h2>Protect your feet, hands, and head</h2>
+          <p>Wear waterproof boots with good grip and warm socks. Add a hat, gloves, and a scarf, because uncovered skin loses heat quickly and wet feet get cold fast.</p>
+          <p class="tip"><strong>Tip:</strong> Keep an extra pair of dry socks in your bag.</p>
+          <div class="step-nav">
+            <button type="button" class="btn ghost" data-step="4">Previous step</button>
+            <button type="button" class="btn" data-step="6">Next step</button>
+          </div>
+        </div>
+        <div class="ph tall" role="img" aria-label="Placeholder for waterproof boots, knit gloves, a hat, and a scarf laid out together"><span>Add your photo: boots, gloves, hat, and scarf laid out together.</span></div>
+      </div>
+    </article>
+
+    <article class="step" id="step6">
+      <div class="step-grid">
+        <div class="step-num" aria-hidden="true">6</div>
+        <div>
+          <h2>Add your personal style</h2>
+          <p>Pick one or two pieces that feel like you, such as a colorful scarf, a beret, a statement belt, or a favorite bag. Warm clothing can still be coordinated and confident.</p>
+          <div class="step-nav">
+            <button type="button" class="btn ghost" data-step="5">Previous step</button>
+            <a class="btn" href="#video">Watch the video</a>
+            <a class="btn ghost" href="#style">See style inspiration</a>
+          </div>
+        </div>
+        <div class="ph tall" role="img" aria-label="Placeholder for a student in a finished winter outfit walking across a snowy quad"><span>Add your photo: a full-length photo of your finished outfit on campus.</span></div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="page" id="page-video" data-title="Video">
+  <div class="wrap narrow">
+    <div class="page-head">
+      <h1>Watch: dress for a Syracuse winter in six steps</h1>
+      <p class="lead">Prefer to watch instead of read? We walk through all six steps in a few minutes.</p>
+    </div>
+    <div class="video-box">
+      <div class="ph wide" role="img" aria-label="Placeholder where the team video will appear"><span>Your team video goes here. Upload it as unlisted on YouTube or Vimeo, then add the link below.</span></div>
+      <div class="btn-row">
+        <a class="btn" id="video-link" href="https://www.youtube.com/" target="_blank" rel="noopener">Open the video in a new tab</a>
+      </div>
+      <p class="fine" style="margin-top:1rem">Captions are available in the video player. A full transcript is below.</p>
+    </div>
+    <div class="transcript panel">
+      <h2>Video transcript</h2>
+      <p>Paste the transcript of your video here after you record it. Include who is speaking and describe anything important that is shown on screen.</p>
+    </div>
+    <div class="btn-row" style="margin-bottom:3rem">
+      <a class="btn ghost" href="#instructions">Back to the instructions</a>
+      <a class="btn ghost" href="#home">Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE -->
+<div class="page" id="page-style" data-title="Style inspiration">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Style inspiration: winter outfits on campus</h1>
+      <p class="lead">Once you have the basics from steps one to five, use these outfits for ideas on making them your own.</p>
+      <p class="notice"><strong>Team note:</strong> swap each placeholder for your own outfit photo and rewrite the caption to match what you’re wearing. Keep the item list as real text.</p>
+    </div>
+    <div class="cards">
+
+      <article class="card">
+        <div class="ph tall" role="img" aria-label="Placeholder for a photo of the cozy neutrals outfit"><span>Add your photo of this outfit</span></div>
+        <h3>Cozy neutrals</h3>
+        <dl>
+          <dt>Wearing</dt><dd>Gray bomber, cream scarf, tan beret, straight-leg jeans, chunky black shoes</dd>
+          <dt>Why it works</dt><dd>The scarf and layers block wind, and neutral colors keep it simple.</dd>
+          <dt>Best for</dt><dd>Mild winter days when sidewalks are clear</dd>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="ph tall" role="img" aria-label="Placeholder for a photo of the easy denim outfit"><span>Add your photo of this outfit</span></div>
+        <h3>Easy denim</h3>
+        <dl>
+          <dt>Wearing</dt><dd>Long beige coat, oversized scarf, wide-leg jeans, tan shoes</dd>
+          <dt>Why it works</dt><dd>A long coat and a chunky scarf cover the most skin.</dd>
+          <dt>Best for</dt><dd>Windy days</dd>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="ph tall" role="img" aria-label="Placeholder for a photo of the light puffers outfit"><span>Add your photo of this outfit</span></div>
+        <h3>Light puffers</h3>
+        <dl>
+          <dt>Wearing</dt><dd>Cream or white puffer jacket, denim, white snow boots, white hat, statement belt</dd>
+          <dt>Why it works</dt><dd>Puffers hold heat, and snow boots keep your feet dry.</dd>
+          <dt>Best for</dt><dd>Snowy days</dd>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="ph tall" role="img" aria-label="Placeholder for a photo of the workwear mix outfit"><span>Add your photo of this outfit</span></div>
+        <h3>Workwear mix</h3>
+        <dl>
+          <dt>Wearing</dt><dd>Black jacket over a gray hoodie, patchwork pants, chunky sneakers, red beanie, headphones</dd>
+          <dt>Why it works</dt><dd>The hoodie adds a warm middle layer, and the beanie covers your head.</dd>
+          <dt>Best for</dt><dd>Cold, dry days</dd>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="ph tall" role="img" aria-label="Placeholder for a photo of the cream and brown outfit"><span>Add your photo of this outfit</span></div>
+        <h3>Cream and brown</h3>
+        <dl>
+          <dt>Wearing</dt><dd>Cream puffer, fuzzy brown hat, fleece-lined tights, pleated skirt, tall rain boots</dd>
+          <dt>Why it works</dt><dd>Fleece-lined tights add warmth, and tall rain boots keep slush off your legs.</dd>
+          <dt>Best for</dt><dd>Milder, slushy days. Add gloves and a scarf when the wind picks up.</dd>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="ph tall" role="img" aria-label="Placeholder for a photo of the burgundy layers outfit"><span>Add your photo of this outfit</span></div>
+        <h3>Burgundy layers</h3>
+        <dl>
+          <dt>Wearing</dt><dd>Burgundy coat over a black zip-up, slim black pants, white sneakers, or a checked jacket with a burgundy scarf, knit gloves, flared trousers, and boots</dd>
+          <dt>Why it works</dt><dd>A dressier look that still has real layers and warm accessories.</dd>
+          <dt>Best for</dt><dd>Milder days with clear sidewalks. Swap in heavier boots and a heavier coat when it snows.</dd>
+        </dl>
+      </article>
+    </div>
+    <div class="btn-row" style="margin:2.5rem 0 1rem">
+      <a class="btn" href="#shop">Find where to shop</a>
+      <a class="btn ghost" href="#instructions">Back to the instructions</a>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="page" id="page-shop" data-title="Where to shop">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Where to buy winter essentials</h1>
+      <p class="lead">We grouped stores that are popular with students by what you need. Prices and stock change, so check each store’s current listings. Links open in a new tab.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Stores by item</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Places to look</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Coats and puffers</th><td>
+            <a href="https://www.abercrombie.com/" target="_blank" rel="noopener">Abercrombie &amp; Fitch</a>
+            <a href="https://www.nordstrom.com/" target="_blank" rel="noopener">Nordstrom</a>
+            <a href="https://www.zara.com/us/" target="_blank" rel="noopener">Zara</a>
+            <a href="https://www.aritzia.com/en/home" target="_blank" rel="noopener">Aritzia</a>
+            <a href="https://www.gap.com/" target="_blank" rel="noopener">Gap</a></td></tr>
+          <tr><th scope="row">Jeans and pants</th><td>
+            <a href="https://www.abercrombie.com/" target="_blank" rel="noopener">Abercrombie &amp; Fitch</a>
+            <a href="https://www.gap.com/" target="_blank" rel="noopener">Gap</a>
+            <a href="https://www2.hm.com/en_us/" target="_blank" rel="noopener">H&amp;M</a>
+            <a href="https://www.pacsun.com/" target="_blank" rel="noopener">Pacsun</a></td></tr>
+          <tr><th scope="row">Scarves, hats, and accessories</th><td>
+            <a href="https://www.anthropologie.com/" target="_blank" rel="noopener">Anthropologie</a>
+            <a href="https://www2.hm.com/en_us/" target="_blank" rel="noopener">H&amp;M</a>
+            <a href="https://www.zara.com/us/" target="_blank" rel="noopener">Zara</a>
+            <a href="https://www.pacsun.com/" target="_blank" rel="noopener">Pacsun</a></td></tr>
+          <tr><th scope="row">Boots and shoes</th><td>
+            <a href="https://www.stevemadden.com/" target="_blank" rel="noopener">Steve Madden</a>
+            <a href="https://www.asos.com/us/" target="_blank" rel="noopener">ASOS</a>
+            <a href="https://www.nordstrom.com/" target="_blank" rel="noopener">Nordstrom</a></td></tr>
+          <tr><th scope="row">Dressier winter pieces</th><td>
+            <a href="https://www.thereformation.com/" target="_blank" rel="noopener">Reformation</a>
+            <a href="https://www.anthropologie.com/" target="_blank" rel="noopener">Anthropologie</a>
+            <a href="https://www.aritzia.com/en/home" target="_blank" rel="noopener">Aritzia</a></td></tr>
+          <tr><th scope="row">Budget picks</th><td>
+            <a href="https://www2.hm.com/en_us/" target="_blank" rel="noopener">H&amp;M</a>
+            <a href="https://www.pacsun.com/" target="_blank" rel="noopener">Pacsun</a>
+            <a href="https://www.asos.com/us/" target="_blank" rel="noopener">ASOS</a></td></tr>
+          <tr><th scope="row">Secondhand</th><td>
+            <a href="https://www.depop.com/" target="_blank" rel="noopener">Depop</a>
+            <a href="https://poshmark.com/" target="_blank" rel="noopener">Poshmark</a>
+            <a href="https://www.thredup.com/" target="_blank" rel="noopener">ThredUp</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="btn-row" style="margin:2rem 0 1rem">
+      <a class="btn ghost" href="#style">Back to style inspiration</a>
+      <a class="btn ghost" href="#home">Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="page" id="page-team" data-title="Meet the team">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Meet the team</h1>
+      <p class="lead">We’re three Syracuse students who built this guide to make winter a little easier for everyone on campus. Together, we designed, photographed, and filmed it.</p>
+    </div>
+    <div class="team">
+      <article class="member">
+        <div class="ph tall" role="img" aria-label="Placeholder for Mia’s headshot"><span>Add Mia’s headshot</span></div>
+        <h3>Mia</h3>
+        <p class="role">Add her role on this project</p>
+        <p>Paste Mia’s professional bio from the Correspondence Portfolio here.</p>
+      </article>
+      <article class="member">
+        <div class="ph tall" role="img" aria-label="Placeholder for Sarah’s headshot"><span>Add Sarah’s headshot</span></div>
+        <h3>Sarah</h3>
+        <p class="role">Add her role on this project</p>
+        <p>Paste Sarah’s professional bio from the Correspondence Portfolio here.</p>
+      </article>
+      <article class="member">
+        <div class="ph tall" role="img" aria-label="Placeholder for Mae’s headshot"><span>Add Mae’s headshot</span></div>
+        <h3>Mae</h3>
+        <p class="role">Add her role on this project</p>
+        <p>Paste Mae’s professional bio from the Correspondence Portfolio here.</p>
+      </article>
+    </div>
+    <div class="btn-row" style="margin:2.5rem 0 1rem">
+      <a class="btn" href="#contact">Contact us</a>
+      <a class="btn ghost" href="#home">Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact" data-title="Contact">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Contact us</h1>
+      <p class="lead">Have a question about what to wear in Syracuse snow, or want help styling an outfit? Send us a message and we’ll reply within two business days.</p>
+    </div>
+    <div class="two-col" style="margin-bottom:2rem">
+      <div>
+        <form id="contact-form" novalidate>
+          <div>
+            <label for="c-name">Your name</label>
+            <input id="c-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div>
+            <label for="c-email">Your email address</label>
+            <input id="c-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div>
+            <label for="c-topic">What can we help with?</label>
+            <select id="c-topic" name="topic">
+              <option>Outfit advice</option>
+              <option>Where to shop</option>
+              <option>Feedback on the site</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div>
+            <label for="c-message">Your message</label>
+            <textarea id="c-message" name="message" required></textarea>
+          </div>
+          <div>
+            <button class="btn" type="submit">Send message</button>
+          </div>
+          <p class="fine">Sending opens your email app with your message ready to go. We only use your email to reply.</p>
+        </form>
+        <div class="status" id="form-status" role="status" aria-live="polite" hidden></div>
+      </div>
+      <div class="panel">
+        <h2>Other ways to reach us</h2>
+        <p><strong>Email:</strong> <a href="mailto:SUsnowstormstyle@gmail.com">SUsnowstormstyle@gmail.com</a></p>
+        <p><strong>Instagram:</strong> @SUsnowstormstyle</p>
+        <div class="btn-row">
+          <a class="btn ghost" href="#home">Home</a>
+          <a class="btn ghost" href="#team">Meet the team</a>
+          <a class="btn ghost" href="#video">Watch the video</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Syracuse Snow Storm Style. A student project for WRT 307.</p>
+    <p><a href="#home">Back to home</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var pages = ["home", "instructions", "video", "style", "shop", "team", "contact"];
+  var current = null;
+  var main = document.getElementById("main-content");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function show(id, opts) {
+    opts = opts || {};
+    if (pages.indexOf(id) === -1) { id = "home"; }
+    current = id;
+    pages.forEach(function (p) {
+      var el = document.getElementById("page-" + p);
+      if (el) { el.classList.toggle("active", p === id); }
+    });
+    var links = document.querySelectorAll(".nav a");
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].getAttribute("data-page") === id) { links[i].setAttribute("aria-current", "page"); }
+      else { links[i].removeAttribute("aria-current"); }
+    }
+    var title = document.getElementById("page-" + id).getAttribute("data-title");
+    document.title = (id === "home" ? "" : title + " | ") + "Syracuse Snow Storm Style";
+    if (!opts.keepScroll) {
+      window.scrollTo(0, 0);
+      try { main.focus({ preventScroll: true }); } catch (e) { main.focus(); }
+    }
+  }
+
+  function goStep(n) {
+    if (current !== "instructions") { show("instructions", { keepScroll: true }); }
+    var el = document.getElementById("step" + n);
+    if (el) {
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      var h = el.querySelector("h2");
+      if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    }
+  }
+
+  function fromHash() {
+    var token = (location.hash || "").replace(/^#/, "");
+    show(token || "home");
+  }
+
+  window.addEventListener("hashchange", fromHash);
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-step]");
+    if (t) {
+      e.preventDefault();
+      goStep(parseInt(t.getAttribute("data-step"), 10));
+    }
+  });
+
+  var skip = document.getElementById("skip-link");
+  skip.addEventListener("click", function (e) {
+    e.preventDefault();
+    main.focus();
+  });
+
+  var form = document.getElementById("contact-form");
+  var status = document.getElementById("form-status");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = form.elements["name"].value.trim();
+    var email = form.elements["email"].value.trim();
+    var topic = form.elements["topic"].value;
+    var message = form.elements["message"].value.trim();
+    status.hidden = false;
+    if (!name || !email || !message) {
+      status.textContent = "Please fill in your name, email address, and message, then send again.";
+      return;
+    }
+    var subject = "Snow Storm Style: " + topic;
+    var body = message + "\n\nFrom: " + name + " (" + email + ")";
+    var href = "mailto:SUsnowstormstyle@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    status.innerHTML = "Thanks for reaching out. Your email app should open with your message. If it doesn’t, email us directly at <a href=\"mailto:SUsnowstormstyle@gmail.com\">SUsnowstormstyle@gmail.com</a>.";
+    window.location.href = href;
+  });
+
+  fromHash();
+})();
+</script>
+</body>
+</html>
